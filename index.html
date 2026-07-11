@@ -273,7 +273,34 @@
     line-height: 1.9;
   }
   .hosts .names{ font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); }
-
+/* ---------- Add to calendar ---------- */
+  .calendar-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 12px 28px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .calendar-btn:hover{
+    background: var(--gold);
+    color: #fff;
+  }
+  .calendar-btn svg{
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.6;
+  }
   .rsvp{
     margin-top: 60px;
     text-align: center;
@@ -384,6 +411,11 @@
         <div class="detail-label">Date</div>
         <div class="detail-value">Saturday, August 29, 2026</div>
         <div class="detail-sub">Ceremony begins promptly</div>
+        <a class="calendar-btn" target="_blank" rel="noopener"
+           href="https://www.google.com/calendar/render?action=TEMPLATE&text=Marco%20Antony%27s%20Baptism&dates=20260829T170000/20260829T190000&location=St.%20George%27s%20Church%2C%20Puthenvelikkara%2C%20Malavana&details=Join%20us%20to%20celebrate%20the%20baptism%20of%20Marco%20Antony">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9h18"/><path d="M8 3v4M16 3v4"/></svg>
+          Add to Calendar
+        </a>
       </div>
     </div>
 
