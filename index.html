@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baptism Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1f3145;
+    --font-blue: #7fa8c9;
+    --font-blue-pale: #e7f0f6;
+    --ivory: #fbf8f2;
+    --gold: #b98d4e;
+    --gold-soft: #d9bd8e;
+    --petal: #e3b7c2;
+    --petal-2: #f0d3a8;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+  }
+
+  #petals{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+  }
+  .petal{
+    position: absolute;
+    top: -30px;
+    width: 14px;
+    height: 14px;
+    background: var(--petal);
+    border-radius: 0 60% 0 60%;
+    opacity: 0.75;
+    animation-name: fall, sway;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+  }
+  .petal.alt{ background: var(--petal-2); border-radius: 60% 0 60% 0; }
+
+  @keyframes fall{
+    0%   { transform: translateY(-40px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+  }
+  @keyframes sway{
+    0%, 100% { margin-left: 0; }
+    50%      { margin-left: 40px; }
+  }
+
+  .hero{
+    position: relative;
+    padding: 90px 0 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .ripple-stage{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 30px;
+  }
+  .ripple-stage svg{ position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ripple-circle{
+    fill: none;
+    stroke: var(--font-blue);
+    stroke-width: 1;
+    opacity: 0;
+    transform-origin: center;
+    animation: ripple 4.5s ease-out infinite;
+  }
+  .ripple-circle.c2{ animation-delay: 1.1s; stroke: var(--gold-soft); }
+  .ripple-circle.c3{ animation-delay: 2.2s; }
+  @keyframes ripple{
+    0%   { transform: scale(0.15); opacity: 0; }
+    12%  { opacity: 0.55; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+  .drop{
+    position: absolute; left: 50%; top: 50%;
+    width: 10px; height: 10px;
+    margin-left: -5px; margin-top: -5px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  .eyebrow{
+    font-size: 12px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  h1{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(40px, 9vw, 64px);
+    line-height: 1.05;
+    margin: 0 0 8px;
+  }
+  .subname{
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--font-blue);
+  }
+  .verse{
+    max-width: 420px;
+    margin: 34px auto 0;
+    font-size: 15px;
+    line-height: 1.9;
+    color: #5a6b7d;
+  }
+  .verse span{
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink);
+    margin-top: 6px;
+  }
+
+  .divider{ display: flex; align-items: center; gap: 14px; margin: 56px 0; }
+  .divider .line{ flex:1; height: 1px; background: linear-gradient(to right, transparent, var(--gold-soft), transparent); }
+  .divider .mark{ color: var(--gold); font-size: 13px; letter-spacing: 0.3em; }
+
+  .countdown{ text-align: center; }
+  .countdown .eyebrow{ margin-bottom: 22px; }
+  .count-grid{
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .count-box{
+    background: #fff;
+    border: 1px solid #eadfca;
+    border-radius: 6px;
+    padding: 18px 14px;
+    min-width: 78px;
+  }
+  .count-num{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .count-label{
+    margin-top: 8px;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .count-done{
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--font-blue);
+  }
+
+  .gallery-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .gallery-grid figure{
+    margin: 0;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--font-blue-pale);
+  }
+  .gallery-grid figure:first-child{
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .gallery-grid img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-grid figure:hover img{ transform: scale(1.06); }
+
+  .details{ display: grid; gap: 28px; }
+  .detail-row{
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 18px;
+    align-items: start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eadfca;
+  }
+  .detail-row:last-child{ border-bottom: none; }
+  .detail-icon{
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--font-blue-pale);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .detail-icon svg{ width: 20px; height: 20px; stroke: var(--font-blue); fill: none; stroke-width: 1.4; }
+  .detail-label{
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .detail-value{ font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; line-height: 1.3; }
+  .detail-sub{ font-size: 14px; color: #6b7a89; margin-top: 4px; }
+
+  .hosts{
+    text-align: center;
+    margin-top: 56px;
+    font-size: 15px;
+    color: #5a6b7d;
+    line-height: 1.9;
+  }
+  .hosts .names{ font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); }
+
+  .rsvp{
+    margin-top: 60px;
+    text-align: center;
+    padding: 40px 28px;
+    background: var(--ink);
+    border-radius: 4px;
+    color: var(--ivory);
+  }
+  .rsvp h2{ font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 28px; margin: 0 0 10px; }
+  .rsvp p{ font-size: 14px; color: #b9c7d4; margin: 0 0 24px; line-height: 1.7; }
+  .rsvp-btn{
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--gold);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.25s ease;
+  }
+  .rsvp-btn:hover{ background: var(--gold-soft); }
+
+  footer{
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: #a9b6c2;
+    text-transform: uppercase;
+  }
+
+  section{ margin-top: 8px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .ripple-circle{ animation: none; opacity: 0.25; }
+    .petal{ animation: none; display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="petals" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="ripple-stage" aria-hidden="true">
+      <svg viewBox="0 0 220 220">
+        <circle class="ripple-circle c1" cx="110" cy="110" r="100"></circle>
+        <circle class="ripple-circle c2" cx="110" cy="110" r="100"></circle>
+        <circle class="ripple-circle c3" cx="110" cy="110" r="100"></circle>
+      </svg>
+      <div class="drop"></div>
+    </div>
+
+    <div class="eyebrow">The Baptism Of</div>
+    <h1>Marco Antony</h1>
+    <div class="subname">Child of Layana Thomas &amp; Jithin Antony</div>
+
+    <p class="verse">
+      With hearts full of gratitude, we invite you to witness this sacred moment
+      <span>"I am baptizing you with water... He will baptize you with the holy Spirit and fire. Mathew 3:11"</span>
+    </p>
+  </section>
+
+  <div class="divider"><div class="line"></div><div class="mark">✦</div><div class="line"></div></div>
+
+  <section class="countdown">
+    <div class="eyebrow">Counting Down To The Blessing</div>
+    <div class="count-grid" id="countGrid">
+      <div class="count-box"><div class="count-num" id="cd-days">00</div><div class="count-label">Days</div></div>
+      <div class="count-box"><div class="count-num" id="cd-hours">00</div><div class="count-label">Hours</div></div>
+      <div class="count-box"><div class="count-num" id="cd-mins">00</div><div class="count-label">Minutes</div></div>
+      <div class="count-box"><div class="count-num" id="cd-secs">00</div><div class="count-label">Seconds</div></div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="line"></div><div class="mark">✦</div><div class="line"></div></div>
+
+  <section>
+    <div class="eyebrow" style="text-align:center;">A Few Precious Moments</div>
+    <div class="gallery-grid" style="margin-top:20px;">
+      <figure><img src="photo1.jpg" alt="Baby photo 1"></figure>
+      <figure><img src="photo2.jpg" alt="Baby photo 2"></figure>
+      <figure><img src="photo3.jpg" alt="Baby photo 3"></figure>
+      <figure><img src="photo4.jpg" alt="Baby photo 4"></figure>
+      <figure><img src="photo5.jpg" alt="Baby photo 5"></figure>
+    </div>
+  </section>
+
+  <div class="divider"><div class="line"></div><div class="mark">✦</div><div class="line"></div></div>
+
+  <section class="details">
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9h18"/><path d="M8 3v4M16 3v4"/></svg></div>
+      <div>
+        <div class="detail-label">Date</div>
+        <div class="detail-value">Sunday, Month 00, 2026</div>
+        <div class="detail-sub">Ceremony begins promptly</div>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <div>
+        <div class="detail-label">Time</div>
+        <div class="detail-value">00:00 AM</div>
+        <div class="detail-sub">Please arrive 15 minutes early</div>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg></div>
+      <div>
+        <div class="detail-label">Church</div>
+        <div class="detail-value">Name of Church</div>
+        <div class="detail-sub">Street Address, City</div>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/><circle cx="12" cy="8" r="4"/></svg></div>
+      <div>
+        <div class="detail-label">Celebration To Follow</div>
+        <div class="detail-value">Name of Venue</div>
+        <div class="detail-sub">Street Address, City</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hosts">
+    With love from the Godparents<br>
+    <span class="names">Godparent One &amp; Godparent Two</span>
+  </div>
+
+  <div class="rsvp">
+    <h2>Kindly RSVP</h2>
+    <p>We would be honored to have you share in this blessing.<br>Please let us know by Month 00.</p>
+    <a class="rsvp-btn" href="mailto:youremail@example.com?subject=Baptism%20RSVP">RSVP by Email</a>
+  </div>
+
+  <footer>With Gratitude &amp; Grace</footer>
+
+</div>
+
+<script>
+  (function(){
+    var container = document.getElementById('petals');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var count = 18;
+    for (var i = 0; i < count; i++){
+      var p = document.createElement('div');
+      p.className = 'petal' + (i % 2 === 0 ? ' alt' : '');
+      var left = Math.random() * 100;
+      var size = 10 + Math.random() * 10;
+      var fallDur = 9 + Math.random() * 8;
+      var swayDur = 3 + Math.random() * 3;
+      var delay = Math.random() * 12;
+      p.style.left = left + 'vw';
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.animationDuration = fallDur + 's, ' + swayDur + 's';
+      p.style.animationDelay = delay + 's, ' + (delay * 0.5) + 's';
+      container.appendChild(p);
+    }
+  })();
+
+  var COUNTDOWN_TARGET = new Date('2026-09-29T17:00:00');
+
+  function updateCountdown(){
+    var now = new Date();
+    var diff = COUNTDOWN_TARGET - now;
+
+    if (diff <= 0){
+      document.getElementById('countGrid').innerHTML =
+        '<div class="count-done">The blessed day has arrived 🕊️</div>';
+      return;
+    }
+
+    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    var mins = Math.floor((diff / (1000 * 60)) % 60);
+    var secs = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
