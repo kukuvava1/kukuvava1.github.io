@@ -65,7 +65,43 @@
     0%, 100% { margin-left: 0; }
     50%      { margin-left: 40px; }
   }
-
+/* ---------- Flying dove ---------- */
+  .dove-track{
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .dove{
+    position: absolute;
+    width: 46px;
+    height: auto;
+    left: -60px;
+    animation: fly 13s linear infinite, bob 2.4s ease-in-out infinite;
+  }
+  .dove .wing{
+    transform-origin: 50% 50%;
+    animation: flap 0.55s ease-in-out infinite alternate;
+  }
+  @keyframes fly{
+    0%   { left: -60px; }
+    100% { left: 105%; }
+  }
+  @keyframes bob{
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  @keyframes flap{
+    0%   { transform: scaleY(1) rotate(0deg); }
+    100% { transform: scaleY(0.55) rotate(-8deg); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dove{ animation: none; left: 50%; margin-left: -23px; }
+    .dove .wing{ animation: none; }
+  }
   .hero{
     position: relative;
     padding: 90px 0 20px;
