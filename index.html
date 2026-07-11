@@ -320,6 +320,57 @@
     fill: none;
     stroke-width: 1.6;
   }
+  /* ---------- Music toggle ---------- */
+  .music-toggle{
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(31, 49, 69, 0.3);
+    z-index: 1000;
+    transition: background 0.25s ease;
+  }
+  .music-toggle:hover{ background: #2c435c; }
+  .music-toggle svg{
+    width: 22px;
+    height: 22px;
+    stroke: var(--gold-soft);
+    fill: none;
+    stroke-width: 1.6;
+  }
+  .music-toggle.playing svg{ stroke: var(--gold); }
+
+  .music-toggle .bars{
+    display: none;
+    align-items: flex-end;
+    gap: 3px;
+    height: 16px;
+  }
+  .music-toggle.playing .bars{ display: flex; }
+  .music-toggle.playing svg{ display: none; }
+  .music-toggle .bars span{
+    display: block;
+    width: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    animation: bar 0.9s ease-in-out infinite;
+  }
+  .music-toggle .bars span:nth-child(1){ height: 6px; animation-delay: 0s; }
+  .music-toggle .bars span:nth-child(2){ height: 16px; animation-delay: 0.2s; }
+  .music-toggle .bars span:nth-child(3){ height: 10px; animation-delay: 0.4s; }
+
+  @keyframes bar{
+    0%, 100% { transform: scaleY(0.4); }
+    50%      { transform: scaleY(1); }
+  }
   .rsvp{
     margin-top: 60px;
     text-align: center;
@@ -480,7 +531,12 @@
   </div>
 
   <footer>With Gratitude &amp; Grace</footer>
+  <audio id="bgMusic" src="background-music.mp3" loop></audio>
 
+<button class="music-toggle" id="musicToggle" aria-label="Play background music">
+  <svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+  <div class="bars"><span></span><span></span><span></span></div>
+</button>
 </div>
 
 <script>
@@ -528,7 +584,21 @@
     document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
     document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
   }
+// ---------- Music toggle ----------
+  var music = document.getElementById('bgMusic');
+  var musicBtn = document.getElementById('musicToggle');
 
+  musicBtn.addEventListener('click', function(){
+    if (music.paused){
+      music.play();
+      musicBtn.classList.add('playing');
+      musicBtn.setAttribute('aria-label', 'Pause background music');
+    } else {
+      music.pause();
+      musicBtn.classList.remove('playing');
+      musicBtn.setAttribute('aria-label', 'Play background music');
+    }
+  });
   updateCountdown();
   setInterval(updateCountdown, 1000);
 </script>
